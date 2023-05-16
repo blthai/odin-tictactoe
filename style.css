@@ -1,3 +1,25 @@
 html{
   font-size: 62.5%;
 }
+
+.container{
+  display: grid;
+  justify-items: center;
+}
+
+.game-board{
+  display: grid;
+  grid-template-columns: 20rem 20rem 20rem;
+  justify-items: center;
+  align-items: center;
+
+}
+
+.column{
+  justify-self: center;
+}
+
+.board-slot{
+  font-size: 4.8rem;
+  text-align: center;
+}

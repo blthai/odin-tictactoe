@@ -1,6 +1,8 @@
 const boardSlots = document.querySelectorAll(".board-slot");
 
-const createPlayer = (name, playerNumber) => ({ name, playerNumber });
+const createPlayer = (name, playerNumber) => {
+  return { name, playerNumber };
+};
 
 const playerOne = createPlayer('Benji', 1);
 const playerTwo = createPlayer('Maylinh', 2);
@@ -44,7 +46,14 @@ const gameBoard = (() => {
     return winningRow;
   }
 
-
+  const checkDiagonal = (diagonalArray, playerNumber) => {
+    let winningDiagonal = true;
+    diagonalArray.forEach((tile) => {
+      if(board[tile]!==playerNumber){
+      winningDiagonal=false;
+    }})
+    return winningDiagonal;
+  }
 
   const checkWinner = (playerNumber, chosenTile) => {
     const winningArray = [playerNumber, playerNumber, playerNumber];
@@ -63,7 +72,11 @@ const gameBoard = (() => {
         winnerExists = true;
       }
     }
-    
+    if([0,2,4,6,8].includes(chosenTile)){
+      if(checkDiagonal([board[0], board[4], board[8]], playerNumber) || checkDiagonal([2, 4, 6], playerNumber)){
+        winnerExists = true;
+      }
+    }
     else if(!board.includes(0)){
       tieExists = true;
     }
@@ -93,15 +106,10 @@ const gameBoard = (() => {
     slotIndex+=1;
     slot.addEventListener('click', markTile);
   })
-
-  
-
   const playRound = () => {
 
     gameBoard.displayBoard();
   };
-  
-
   return { board, playRound, displayBoard, winnerExists};
 })();
 

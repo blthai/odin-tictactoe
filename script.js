@@ -73,7 +73,7 @@ const gameBoard = (() => {
       }
     }
     if([0,2,4,6,8].includes(chosenTile)){
-      if(checkDiagonal([board[0], board[4], board[8]], playerNumber) || checkDiagonal([2, 4, 6], playerNumber)){
+      if(checkDiagonal([0,4,8], playerNumber) || checkDiagonal([2, 4, 6], playerNumber)){
         winnerExists = true;
       }
     }
@@ -112,8 +112,6 @@ const gameBoard = (() => {
   };
   return { board, playRound, displayBoard, winnerExists};
 })();
-
-
 
 
 const gameFlow = (() => {

@@ -1,14 +1,7 @@
 const boardSlots = document.querySelectorAll(".board-slot");
 
-const createPlayer = (name, playerNumber) => ({ name, playerNumber });
-
-const playerOne = createPlayer("Benji", 1);
-const playerTwo = createPlayer("Maylinh", 2);
-
 const gameBoard = (() => {
   const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let currentTurn = 1;
-  let slotIndex = 0;
   let winnerExists = false;
   let tieExists = false;
 
@@ -57,7 +50,7 @@ const gameBoard = (() => {
     return winningDiagonal;
   };
 
-  const checkWinner = (playerNumber, chosenTile) => {
+  const checkWinner = (playerNumber, chosenTile) => {  
     const winningArray = [playerNumber, playerNumber, playerNumber];
     if ([0, 1, 2].includes(chosenTile)) {
       if (
@@ -94,64 +87,47 @@ const gameBoard = (() => {
       tieExists = true;
     }
   };
+  const getWinnerExists = () => winnerExists;
+  return { board, displayBoard, checkWinner, getWinnerExists};
+})();
 
-  const markTile = (event) => {
-    if (winnerExists) {
+const Player = (playerName, playerNumber) => {
+  const markTile = (chosenBoardTile) => {
+    if (gameBoard.board[chosenBoardTile] !== 0) {
+      return;
+    }
+    gameBoard.board[chosenBoardTile] = playerNumber;
+  };
+  return { playerName, playerNumber, markTile}
+  };
+ 
+const gameFlow = (() => {
+  let currentTurn = 1;
+  const playerOne = Player("Benji", 1);
+  const playerTwo = Player("Maylinh", 2);
+  const playTurn = (event) => {
+    if (gameBoard.getWinnerExists()) {
       return;
     }
     const chosenBoardTile = Number(event.target.dataset.index);
-    if (board[chosenBoardTile] !== 0) {
-      return;
-    }
     if (currentTurn % 2 !== 0) {
-      board[chosenBoardTile] = playerOne.playerNumber;
-      checkWinner(playerOne.playerNumber, chosenBoardTile);
-    } else {
-      board[chosenBoardTile] = playerTwo.playerNumber;
-      checkWinner(playerTwo.playerNumber, chosenBoardTile);
+      playerOne.markTile(chosenBoardTile);
+      gameBoard.checkWinner(playerOne.playerNumber, chosenBoardTile)
     }
+    else{playerTwo.markTile(chosenBoardTile);
+      gameBoard.checkWinner(playerTwo.playerNumber, chosenBoardTile)}
     currentTurn += 1;
     gameBoard.displayBoard();
   };
-
-  boardSlots.forEach((slot) => {
-    slot.dataset.index = slotIndex;
-    slotIndex += 1;
-    slot.addEventListener("click", markTile);
-  });
-
-  const playRound = () => {
-    gameBoard.displayBoard();
-  };
-  return { board, playRound, winnerExists, displayBoard };
+  return {playTurn};
 })();
 
-/*
-const displayController = (() => {
-  const displayBoard = () => {
-    let index = 0;
-    boardSlots.forEach((slot) => {
-      if (gameBoard.board[index] === 1) {
-        slot.textContent = "X";
-      } else if (gameBoard.board[index] === 2) {
-        slot.textContent = "O";
-      } else {
-        slot.textContent = "-";
-      }
-      index += 1;
-    });
-    index = 0;
-  };
-  return {displayBoard};
-})();
-*/
-const gameFlow = (() => {
-  const startGame = () => {
-    while (gameBoard.winnerExists === false) {
-      gameBoard.playRound();
-    }
-  };
-  return {};
-})();
+let slotIndex = 0;
+boardSlots.forEach((slot) => {
+  slot.dataset.index = slotIndex;
+  slotIndex += 1;
+  //slot.addEventListener("click", gameBoard.markTile);
+  slot.addEventListener("click", gameFlow.playTurn);
+});
 
 gameBoard.displayBoard();

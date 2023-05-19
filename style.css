@@ -9,14 +9,17 @@ html{
 
 .game-board{
   display: grid;
-  grid-template-columns: 20rem 20rem 20rem;
+  grid-template-columns: 15rem 15rem 15rem;
+  
   justify-items: center;
   align-items: center;
-
 }
 
 .column{
   justify-self: center;
+  display: grid;
+  grid-template-rows: 30rem 30rem 30rem;
+  align-items: center;
 }
 
 .board-slot{

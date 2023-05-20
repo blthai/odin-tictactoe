@@ -13,7 +13,7 @@ h1{
 
 .game-board{
   display: grid;
-  grid-template-columns: 15rem 15rem 15rem;
+  grid-template-columns: 20rem 20rem 20rem;
   justify-items: center;
   align-items: center;
 }
@@ -21,7 +21,8 @@ h1{
 .column{
   justify-self: center;
   display: grid;
-  grid-template-rows: 30rem 30rem 30rem;
+  grid-template-rows: 20rem 20rem 20rem;
+  width: 20rem;
   align-items: center;
 }
 
@@ -35,6 +36,7 @@ h1{
   grid-template-columns: 50rem 50rem;
   grid-template-rows: 10rem 10rem;
   justify-items: center;
+  margin-top: 10rem;
 }
 
 .new-game-form button{
@@ -69,3 +71,24 @@ input{
 #playertwo{
   border: 2px solid #24BCE0;
 }
+
+.column:first-child .board-slot, .column:nth-child(2) .board-slot{
+  border-right: 2px solid rgb(221,221,221);
+}
+
+.column .board-slot:first-child, .column .board-slot:nth-child(2){
+  border-bottom: 2px solid rgb(221, 221, 221);
+}
+
+.column{
+  width: 15rem;
+}
+
+.board-slot{
+  height: 20rem;
+  width: 20rem;
+  display: grid;
+  align-items: center;
+}
+
+

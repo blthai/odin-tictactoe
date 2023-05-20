@@ -4,7 +4,7 @@ const gameBoard = (() => {
   const board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let winnerExists = false;
   let tieExists = false;
-  let gameStart = false;
+  const gameStart = false;
 
   const displayBoard = () => {
     let index = 0;
@@ -170,10 +170,14 @@ const displayController = (() => {
     const submitPlayersButton = document.createElement("button");
     submitPlayersButton.type = "submit";
     submitPlayersButton.textContent = "Start Game!";
-    newGameForm.appendChild(playerOneLabel);
-    newGameForm.appendChild(playerOneInput);
-    newGameForm.appendChild(playerTwoLabel);
-    newGameForm.appendChild(playerTwoInput);
+    const playerOneContainer = document.createElement("div");
+    playerOneContainer.appendChild(playerOneLabel);
+    playerOneContainer.appendChild(playerOneInput);
+    const playerTwoContainer = document.createElement("div");
+    playerTwoContainer.appendChild(playerTwoLabel);
+    playerTwoContainer.appendChild(playerTwoInput);
+    newGameForm.appendChild(playerOneContainer);
+    newGameForm.appendChild(playerTwoContainer);
     newGameForm.appendChild(submitPlayersButton);
     newGameForm.addEventListener("submit", (event) => {
       event.preventDefault();

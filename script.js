@@ -14,7 +14,7 @@ const gameBoard = (() => {
       } else if (board[index] === 2) {
         slot.textContent = "O";
       } else {
-        slot.textContent = "-";
+        slot.textContent = "";
       }
       index += 1;
     });
@@ -136,7 +136,6 @@ const gameFlow = (() => {
     if (gameBoard.getWinnerExists() || gameBoard.gameStart === false) {
       return;
     }
-    console.log(currentTurn);
     const chosenBoardTile = Number(event.target.dataset.index);
     if (currentTurn % 2 !== 0) {
       playerOne.markTile(chosenBoardTile);
@@ -188,19 +187,16 @@ const displayController = (() => {
       }
       const resetButton = document.createElement("button");
       resetButton.textContent = "Reset Game";
-      resetButton.addEventListener("click", resetGame);
+      resetButton.addEventListener("click", ()=>{
+        newGameForm.removeChild(newGameForm.firstChild);
+        gameBoard.resetBoard();
+        gameBoard.displayBoard();
+        gameBoard.gameStart = false;
+        gameBoard.falsifyWinnerExists();
+        gameFlow.resetTurns();
+        initializeDisplay();});
       newGameForm.appendChild(resetButton);
     });
-  };
-
-  const resetGame = () => {
-    newGameForm.removeChild(newGameForm.firstChild);
-    gameBoard.resetBoard();
-    gameBoard.displayBoard();
-    gameBoard.gameStart = false;
-    gameBoard.falsifyWinnerExists();
-    gameFlow.resetTurns();
-    initializeDisplay();
   };
 
   return { initializeDisplay };

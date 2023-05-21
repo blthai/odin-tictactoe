@@ -163,7 +163,7 @@ const gameFlow = (() => {
     playerOne = Player(playerOneName, 1);
     playerTwo = Player(playerTwoName, 2);
   };
-
+  const incrementTurn = ()=>{currentTurn+=1;};
   const resetTurns = () => {
     currentTurn = 1;
   };
@@ -172,6 +172,7 @@ const gameFlow = (() => {
       return;
     }
     const chosenBoardTile = Number(event.target.dataset.index);
+    console.log(currentTurn);
     if (currentTurn % 2 !== 0) {
       playerOne.markTile(chosenBoardTile);
       gameBoard.checkWinner(playerOne.playerNumber, chosenBoardTile);
@@ -179,10 +180,10 @@ const gameFlow = (() => {
       playerTwo.markTile(chosenBoardTile);
       gameBoard.checkWinner(playerTwo.playerNumber, chosenBoardTile);
     }
-    currentTurn += 1;
+    incrementTurn();
     gameBoard.displayBoard();
   };
-  return { playTurn, playerOne, playerTwo, resetTurns, createPlayers };
+  return { playTurn, playerOne, playerTwo, resetTurns, createPlayers, currentTurn };
 })();
 
 const displayController = (() => {

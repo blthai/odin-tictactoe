@@ -121,6 +121,7 @@ const gameBoard = (() => {
       tieExists = true;
     }
   };
+  const getTieExists = () => tieExists;
   const getWinnerExists = () => winnerExists;
   const falsifyWinnerExists = () => {
     winnerExists = false;
@@ -131,6 +132,7 @@ const gameBoard = (() => {
     displayBoard,
     checkWinner,
     getWinnerExists,
+    getTieExists,
     gameStart,
     resetBoard,
     falsifyWinnerExists,
@@ -168,7 +170,7 @@ const gameFlow = (() => {
     currentTurn = 1;
   };
   const playTurn = (event) => {
-    if (gameBoard.getWinnerExists() || gameBoard.gameStart === false) {
+    if (gameBoard.getWinnerExists() || gameBoard.gameStart === false || gameBoard.getTieExists()) {
       return;
     }
     const chosenBoardTile = Number(event.target.dataset.index);

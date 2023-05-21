@@ -59,6 +59,7 @@ const gameBoard = (() => {
 
   const checkWinner = (playerNumber, chosenTile) => {
     const winningArray = [playerNumber, playerNumber, playerNumber];
+    const gameForm = document.querySelector(".new-game-form");
     if ([0, 1, 2].includes(chosenTile)) {
       if (
         checkColumn(0, 3, playerNumber) ||
@@ -90,13 +91,40 @@ const gameBoard = (() => {
       ) {
         winnerExists = true;
       }
-    } else if (!board.includes(0)) {
+    } 
+    if(winnerExists === true){
+      const winnerMessage=document.createElement("span");
+      winnerMessage.textContent = `Player ${playerNumber}`;
+      if(playerNumber===1){
+        winnerMessage.style.color="#E04F30";
+      }
+      else{
+        winnerMessage.style.color="#24BCE0";
+      }
+      const winnerMessage2=document.createElement("span");
+      winnerMessage2.textContent = " wins!";
+      winnerMessage.classList.add("winner-message");
+      const winnerContainer = document.createElement("div");
+      winnerContainer.appendChild(winnerMessage);
+      winnerContainer.appendChild(winnerMessage2);
+      winnerContainer.classList.add("winner-container");
+      gameForm.appendChild(winnerContainer);
+       }
+    if(!board.includes(0) && winnerExists===false) {
+      if(tieExists){
+        return;
+      }
+      const tieMessage=document.createElement("div");
+      tieMessage.textContent = "It's a tie!";
+      tieMessage.classList.add("tie-message");
+      gameForm.appendChild(tieMessage);
       tieExists = true;
     }
   };
   const getWinnerExists = () => winnerExists;
   const falsifyWinnerExists = () => {
     winnerExists = false;
+    tieExists = false;
   };
   return {
     board,

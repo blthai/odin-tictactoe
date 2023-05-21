@@ -57,7 +57,7 @@ const gameBoard = (() => {
     return winningDiagonal;
   };
 
-  const checkWinner = (playerNumber, chosenTile) => {
+  const checkWinner = (playerNumber, chosenTile, playerName) => {
     const winningArray = [playerNumber, playerNumber, playerNumber];
     const gameForm = document.querySelector(".new-game-form");
     if ([0, 1, 2].includes(chosenTile)) {
@@ -94,7 +94,7 @@ const gameBoard = (() => {
     } 
     if(winnerExists === true){
       const winnerMessage=document.createElement("span");
-      winnerMessage.textContent = `Player ${playerNumber}`;
+      winnerMessage.textContent = `Player ${playerName}`;
       if(playerNumber===1){
         winnerMessage.style.color="#E04F30";
       }
@@ -177,10 +177,10 @@ const gameFlow = (() => {
     console.log(currentTurn);
     if (currentTurn % 2 !== 0) {
       playerOne.markTile(chosenBoardTile);
-      gameBoard.checkWinner(playerOne.playerNumber, chosenBoardTile);
+      gameBoard.checkWinner(playerOne.playerNumber, chosenBoardTile, playerOne.playerName);
     } else {
       playerTwo.markTile(chosenBoardTile);
-      gameBoard.checkWinner(playerTwo.playerNumber, chosenBoardTile);
+      gameBoard.checkWinner(playerTwo.playerNumber, chosenBoardTile, playerTwo.playerName);
     }
     incrementTurn();
     gameBoard.displayBoard();

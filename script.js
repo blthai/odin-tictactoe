@@ -71,7 +71,7 @@ const gameBoard = (() => {
     if ([3, 4, 5].includes(chosenTile)) {
       if (
         checkColumn(3, 6, playerNumber) ||
-        checkRow([chosenTile, chosenTile - 3, chosenTile + 3, playerNumber])
+        checkRow([chosenTile, chosenTile - 3, chosenTile + 3],playerNumber)
       ) {
         winnerExists = true;
       }
@@ -228,11 +228,11 @@ const displayController = (() => {
           newGameForm.removeChild(newGameForm.firstChild);
         }
         gameBoard.resetBoard();
-        gameBoard.displayBoard();
         gameBoard.gameStart = false;
         gameBoard.falsifyWinnerExists();
         gameFlow.resetTurns();
-        initializeDisplay();});
+        initializeDisplay();
+        gameBoard.displayBoard();});
       newGameForm.appendChild(resetButton);
     });
   };

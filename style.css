@@ -93,10 +93,6 @@ input{
   align-items: center;
 }
 
-[type='submit']{
-  
-}
-
 [type='submit']:hover{
   background-color: rgb(97, 163, 97);
 }

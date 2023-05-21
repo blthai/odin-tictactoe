@@ -115,6 +115,13 @@ const Player = (playerName, playerNumber) => {
       return;
     }
     gameBoard.board[chosenBoardTile] = playerNumber;
+    const chosenCell = document.querySelector(`[data-index="${chosenBoardTile}"]`);
+    if(playerNumber===1){
+      chosenCell.style.color = '#E04F30';
+    }
+    else{
+      chosenCell.style.color = '#24BCE0';
+    }
   };
   return { playerName, playerNumber, markTile };
 };
@@ -187,8 +194,11 @@ const displayController = (() => {
       }
       const resetButton = document.createElement("button");
       resetButton.textContent = "Reset Game";
+      resetButton.classList.add("reset");
       resetButton.addEventListener("click", ()=>{
-        newGameForm.removeChild(newGameForm.firstChild);
+        while (newGameForm.firstChild) {
+          newGameForm.removeChild(newGameForm.firstChild);
+        }
         gameBoard.resetBoard();
         gameBoard.displayBoard();
         gameBoard.gameStart = false;

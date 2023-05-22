@@ -174,7 +174,6 @@ const gameFlow = (() => {
       return;
     }
     const chosenBoardTile = Number(event.target.dataset.index);
-    console.log(currentTurn);
     if (currentTurn % 2 !== 0) {
       playerOne.markTile(chosenBoardTile);
       gameBoard.checkWinner(playerOne.playerNumber, chosenBoardTile, playerOne.playerName);
